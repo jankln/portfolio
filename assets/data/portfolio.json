@@ -1,0 +1,108 @@
+{
+  "personal": {
+    "name": "Jan Klein",
+    "firstName": "Jan",
+    "lastName": "Klein",
+    "title": "Pega Business & System Architect",
+    "subtitle": "Dual Student · Business Informatics B.Sc.",
+    "tagline": "Building enterprise software at Deutsche Telekom AG",
+    "location": "Germany",
+    "birthday": "2004-01-25",
+    "email": "kleinjan826@gmail.com",
+    "bio": "Dual student at Deutsche Telekom AG combining studies in Business Informatics with hands-on work as a Pega Business & System Architect. I run my own home server, love open source and AI, and enjoy turning messy business processes into clean, low-code automation."
+  },
+  "socials": [
+    { "name": "GitHub", "url": "https://github.com/", "icon": "github", "handle": "@your-handle" },
+    { "name": "LinkedIn", "url": "https://linkedin.com/in/", "icon": "linkedin", "handle": "Jan Klein" },
+    { "name": "Email", "url": "mailto:kleinjan826@gmail.com", "icon": "gmail", "handle": "kleinjan826@gmail.com" }
+  ],
+  "github": {
+    "username": "",
+    "fallbackProjects": [
+      {
+        "name": "homelab",
+        "description": "Infrastructure-as-code for my self-hosted home server: Docker, reverse proxy, monitoring.",
+        "url": "https://github.com/",
+        "language": "Shell",
+        "stars": 0
+      },
+      {
+        "name": "pega-workshop-notes",
+        "description": "Notes, patterns and snippets gathered while studying for Pega Certified Architect exams.",
+        "url": "https://github.com/",
+        "language": "Markdown",
+        "stars": 0
+      },
+      {
+        "name": "portfolio",
+        "description": "This portfolio — a static, framework-free site you can self-host anywhere.",
+        "url": "https://github.com/",
+        "language": "HTML",
+        "stars": 0
+      }
+    ]
+  },
+  "timeline": [
+    {
+      "date": "2023 — Present",
+      "title": "Dual Student & Pega Architect",
+      "org": "Deutsche Telekom AG",
+      "description": "Designing and implementing Pega-based business process applications while completing a Bachelor of Science in Business Informatics through the dual-study program.",
+      "tags": ["Pega", "BPM", "Enterprise"]
+    },
+    {
+      "date": "2024",
+      "title": "Pega Certified System Architect",
+      "org": "Pegasystems",
+      "description": "Earned the System Architect certification, covering case management, data modeling, UI, integrations and security on the Pega Platform.",
+      "tags": ["Certification"]
+    },
+    {
+      "date": "2023",
+      "title": "Pega Certified Business Architect",
+      "org": "Pegasystems",
+      "description": "Earned the Business Architect certification, covering DCO, case design, application development and stakeholder collaboration.",
+      "tags": ["Certification"]
+    },
+    {
+      "date": "2023",
+      "title": "Abitur",
+      "org": "Gymnasium",
+      "description": "Completed general qualification for university entrance.",
+      "tags": ["Education"]
+    }
+  ],
+  "skills": [
+    { "name": "Pega Platform", "slug": "pega", "category": "BPM & Low-Code" },
+    { "name": "Java", "slug": "openjdk", "category": "Languages" },
+    { "name": "JavaScript", "slug": "javascript", "category": "Languages" },
+    { "name": "TypeScript", "slug": "typescript", "category": "Languages" },
+    { "name": "Python", "slug": "python", "category": "Languages" },
+    { "name": "SQL", "slug": "postgresql", "category": "Data" },
+    { "name": "Linux", "slug": "linux", "category": "Infrastructure" },
+    { "name": "Docker", "slug": "docker", "category": "Infrastructure" },
+    { "name": "Proxmox", "slug": "proxmox", "category": "Infrastructure" },
+    { "name": "Nginx", "slug": "nginx", "category": "Infrastructure" },
+    { "name": "Git", "slug": "git", "category": "Tools" },
+    { "name": "GitHub", "slug": "github", "category": "Tools" },
+    { "name": "REST APIs", "slug": "openapiinitiative", "category": "Integration" },
+    { "name": "HTML & CSS", "slug": "html5", "category": "Web" },
+    { "name": "Markdown", "slug": "markdown", "category": "Tools" }
+  ],
+  "certifications": [
+    {
+      "title": "Pega Certified Business Architect",
+      "issuer": "Pegasystems",
+      "date": "2023",
+      "description": "Direct Capture of Objectives, case design and application development on Pega Platform.",
+      "url": "https://academy.pega.com/"
+    },
+    {
+      "title": "Pega Certified System Architect",
+      "issuer": "Pegasystems",
+      "date": "2024",
+      "description": "Data modeling, UI, integrations, security and reporting on Pega Platform.",
+      "url": "https://academy.pega.com/"
+    }
+  ]
+}

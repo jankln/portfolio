@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jan Klein — Pega Business & System Architect, dual student at Deutsche Telekom AG." />
+  <meta name="color-scheme" content="dark" />
+  <title>Jan Klein — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="background-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">
+        <span class="brand-dot"></span>
+        <span class="brand-text">jan<span class="brand-accent">.</span>klein</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#timeline">Journey</a>
+        <a href="#skills">Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certs</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow"><span class="pulse"></span> <span data-bind="personal.location"></span> · Available for collaboration</p>
+        <h1 class="hero-title">
+          Hi, I'm <span class="gradient-text" data-bind="personal.firstName"></span>.<br />
+          <span data-bind="personal.title"></span>
+        </h1>
+        <p class="hero-subtitle" data-bind="personal.tagline"></p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">See my work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+        <div class="hero-meta" data-socials></div>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <div class="hero-card-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="hero-card-title">~/whoami</span>
+        </div>
+        <pre class="hero-card-body"><span class="c-comment">// short story</span>
+<span class="c-keyword">const</span> <span class="c-var">jan</span> = {
+  role: <span class="c-string" data-bind="personal.title"></span>,
+  studies: <span class="c-string">'Business Informatics B.Sc.'</span>,
+  company: <span class="c-string">'Deutsche Telekom AG'</span>,
+  loves: [<span class="c-string">'open source'</span>, <span class="c-string">'home labs'</span>, <span class="c-string">'AI'</span>, <span class="c-string">'clean BPM'</span>],
+  born: <span class="c-string" data-bind="personal.birthday"></span>,
+};</pre>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-head">
+        <span class="section-index">01</span>
+        <h2 class="section-title">About</h2>
+      </div>
+      <div class="about-grid">
+        <p class="about-bio" data-bind="personal.bio"></p>
+        <ul class="about-facts">
+          <li><span class="fact-label">Role</span><span data-bind="personal.title"></span></li>
+          <li><span class="fact-label">Studies</span><span data-bind="personal.subtitle"></span></li>
+          <li><span class="fact-label">Based in</span><span data-bind="personal.location"></span></li>
+          <li><span class="fact-label">Email</span><a data-href="personal.email" data-bind="personal.email"></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="section">
+      <div class="section-head">
+        <span class="section-index">02</span>
+        <h2 class="section-title">Journey</h2>
+        <p class="section-sub">Education, work and milestones in reverse-chronological order.</p>
+      </div>
+      <ol class="timeline" data-timeline></ol>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="section-head">
+        <span class="section-index">03</span>
+        <h2 class="section-title">Tech Stack</h2>
+        <p class="section-sub">Tools and platforms I work with day-to-day.</p>
+      </div>
+      <div class="skills-grid" data-skills></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <div class="section-head">
+        <span class="section-index">04</span>
+        <h2 class="section-title">GitHub Projects</h2>
+        <p class="section-sub">A snapshot of what I'm building in the open.</p>
+      </div>
+      <div class="projects-grid" data-projects>
+        <div class="project-card project-skeleton"></div>
+        <div class="project-card project-skeleton"></div>
+        <div class="project-card project-skeleton"></div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <div class="section-head">
+        <span class="section-index">05</span>
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-sub">Verified competencies and credentials.</p>
+      </div>
+      <div class="certs-grid" data-certifications></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-contact">
+      <div class="contact-card">
+        <div>
+          <h2 class="section-title">Let's build something.</h2>
+          <p class="section-sub">Open to interesting collaborations, open-source contributions and a good conversation about Pega, home labs or anything in between.</p>
+        </div>
+        <div class="contact-actions" data-socials></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <span data-bind="personal.name"></span>. Crafted with vanilla HTML, CSS &amp; JS.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
