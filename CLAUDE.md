@@ -31,6 +31,18 @@ Three pieces work together:
 
 3. **`assets/js/main.js`** — one IIFE. `init()` (runs on `DOMContentLoaded`) loads the JSON, then calls `bindStaticFields` + a `render*` function per list section. Each renderer builds an HTML string from the JSON and assigns it to `innerHTML`. Reveal animations (`IntersectionObserver` on `.reveal` elements) and the mobile nav are wired up last.
 
+### Container selectors — one vs. many
+
+`renderSocials` uses `querySelectorAll` and fills **every** `[data-socials]` container (the markup has two: hero + contact). The other list renderers (`renderTimeline`, `renderSkills`, `renderCertifications`, `renderProjects`) use `querySelector` and only fill the **first** matching container. If you duplicate one of those containers in the markup, the second copy stays empty — promote the renderer to `querySelectorAll` or keep a single container.
+
+### `data-href` is mailto-only
+
+`bindStaticFields` hardcodes a `mailto:` prefix when resolving `data-href`. To drive a non-mail link from JSON (e.g. a phone or external URL), generalize the helper — don't add a second hardcoded prefix.
+
+### Trust model for JSON content
+
+Every renderer interpolates JSON values straight into `innerHTML` (titles, descriptions, tags, URLs). That is safe **only** because `portfolio.json` is author-controlled. If you ever wire up user-submitted content (contact form, comments, etc.), escape it before it reaches `innerHTML`.
+
 ### Adding a new section
 
 1. Add the markup to `index.html` with a `data-yoursection` container.
@@ -44,6 +56,8 @@ Skill and social icons load from `https://cdn.simpleicons.org/{slug}/{color}`. T
 ### GitHub projects
 
 `loadProjects()` calls the GitHub REST API live when `github.username` is non-empty, filters out forks/archived repos, sorts by stars then recency, and shows the top 6. If the username is empty or the request fails, `github.fallbackProjects` is rendered instead. The page works fully offline-of-GitHub via this fallback.
+
+Project cards show a colored dot for the repo's primary language. Colors come from the hardcoded `LANG_COLORS` map at the top of `main.js`; unknown languages fall back to `var(--accent)`. Add an entry there to give a new language its own color.
 
 ## Deployment
 
