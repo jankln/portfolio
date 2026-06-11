@@ -720,8 +720,8 @@ body.loaded .hero-fade {
 /* ---------- projects ---------- */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 20px;
 }
 .project-card {
   display: flex;
@@ -738,7 +738,7 @@ body.loaded .hero-fade {
   box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
 }
 .project-media {
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background: var(--bg);
@@ -747,15 +747,16 @@ body.loaded .hero-fade {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* left-anchored crop hides the avatar, which turns negative under the invert filter */
+  /* left-anchored crop + slight zoom hide the avatar, which turns negative under the invert filter */
   object-position: left center;
-  transform: scale(1.01);
+  transform: scale(1.08);
+  transform-origin: left center;
   transition: transform 0.7s var(--ease-out), filter 0.4s ease;
   /* GitHub's OG cards are white — invert + desaturate folds them into the dark monochrome design */
   filter: grayscale(1) invert(0.93) contrast(1.04) brightness(0.85);
 }
 .project-card:hover .project-media img {
-  transform: scale(1.06);
+  transform: scale(1.13);
   filter: grayscale(1) invert(0.93) contrast(1.04) brightness(1);
 }
 .project-body {
@@ -854,15 +855,16 @@ body.loaded .hero-fade {
 .case-media img {
   width: 100%;
   display: block;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: left center;
-  transform: scale(1.01);
+  transform: scale(1.08);
+  transform-origin: left center;
   transition: transform 0.7s var(--ease-out), filter 0.4s ease;
   filter: grayscale(1) invert(0.93) contrast(1.04) brightness(0.85);
 }
 .case-media:hover img {
-  transform: scale(1.05);
+  transform: scale(1.13);
   filter: grayscale(1) invert(0.93) contrast(1.04) brightness(1);
 }
 .case-name {
