@@ -10,35 +10,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="bg-grid"></div>
-    <div class="aurora"><span></span><span></span><span></span></div>
-    <div class="bg-noise"></div>
+  <div class="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <span class="preloader-name">JK</span>
+      <span class="preloader-bar"><span></span></span>
+    </div>
   </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <header class="nav">
     <div class="nav-inner">
-      <a class="nav-brand" href="#top">
-        <span class="brand-dot"></span>
-        <span class="brand-text">jan<span class="brand-accent">.</span>klein</span>
-      </a>
+      <a class="nav-brand" href="#top">JK<span class="brand-accent">.</span></a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#timeline">Journey</a>
         <a href="#skills">Stack</a>
-        <a href="#projects">Projects</a>
-        <a href="#certifications">Certs</a>
+        <a href="#projects">Work</a>
+        <a href="#certifications">Credentials</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </nav>
+      <span class="nav-time" aria-hidden="true">GER <span data-time>--:--</span></span>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
     </div>
   </header>
@@ -46,59 +49,64 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <span class="hero-ghost" data-parallax data-speed="0.18" aria-hidden="true">PORTFOLIO</span>
       <div class="hero-inner">
-        <p class="eyebrow"><span class="pulse"></span> <span data-bind="personal.location"></span> · Available for collaboration</p>
-        <h1 class="hero-title">
-          Hi, I'm <span class="gradient-text" data-bind="personal.firstName"></span>.<br />
-          <span data-bind="personal.title"></span><span class="caret" aria-hidden="true"></span>
+        <p class="hero-eyebrow hero-fade" style="--fd: .9s">
+          <span class="pulse"></span>
+          <span data-bind="personal.location">Germany</span> — open to collaboration
+        </p>
+        <h1 class="hero-name" aria-label="Jan Klein">
+          <span class="line"><span class="split" data-bind="personal.firstName">Jan</span></span>
+          <span class="line"><span class="split" data-bind="personal.lastName">Klein</span><span class="hero-dot" aria-hidden="true">.</span></span>
         </h1>
-        <p class="hero-subtitle" data-bind="personal.tagline"></p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">See my work</a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <p class="hero-role hero-fade" style="--fd: 1.05s">
+          <em class="serif" data-bind="personal.title">Pega Business &amp; System Architect</em>
+          <span class="hero-role-sep">·</span>
+          <span data-bind="personal.subtitle">Dual Student</span>
+        </p>
+        <div class="hero-foot hero-fade" style="--fd: 1.2s">
+          <p class="hero-tagline" data-bind="personal.tagline"></p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-fill magnetic">View work</a>
+            <a href="#contact" class="btn btn-line magnetic">Get in touch</a>
+          </div>
         </div>
-        <div class="hero-meta" data-socials></div>
       </div>
-      <div class="hero-card" data-tilt aria-hidden="true">
-        <div class="hero-card-header">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="hero-card-title">~/whoami</span>
-        </div>
-        <pre class="hero-card-body"><span class="c-comment">// short story</span>
-<span class="c-keyword">const</span> <span class="c-var">jan</span> = {
-  role: <span class="c-string" data-bind="personal.title"></span>,
-  studies: <span class="c-string">'Business Informatics B.Sc.'</span>,
-  company: <span class="c-string">'Deutsche Telekom AG'</span>,
-  loves: [<span class="c-string">'open source'</span>, <span class="c-string">'home labs'</span>, <span class="c-string">'AI'</span>, <span class="c-string">'clean BPM'</span>],
-  born: <span class="c-string" data-bind="personal.birthday"></span>,
-};</pre>
+      <div class="scroll-hint hero-fade" style="--fd: 1.5s" aria-hidden="true">
+        <span class="scroll-hint-label">scroll</span>
+        <span class="scroll-hint-line"></span>
       </div>
-      <div class="scroll-hint" aria-hidden="true"></div>
     </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" data-marquee></div>
+    </div>
 
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="section-head">
-        <span class="section-index">01</span>
-        <h2 class="section-title">About</h2>
+        <span class="section-label scramble">01 / About</span>
+        <h2 class="section-title mask reveal"><span>The short story</span></h2>
       </div>
       <div class="about-grid">
-        <p class="about-bio" data-bind="personal.bio"></p>
-        <ul class="about-facts spot">
+        <p class="about-bio reveal" data-bind="personal.bio"></p>
+        <ul class="about-facts reveal" style="--d: 120ms">
           <li><span class="fact-label">Role</span><span data-bind="personal.title"></span></li>
           <li><span class="fact-label">Studies</span><span data-bind="personal.subtitle"></span></li>
           <li><span class="fact-label">Based in</span><span data-bind="personal.location"></span></li>
           <li><span class="fact-label">Email</span><a data-href="personal.email" data-bind="personal.email"></a></li>
         </ul>
       </div>
+      <div class="stats" data-stats></div>
     </section>
 
     <!-- TIMELINE -->
     <section id="timeline" class="section">
       <div class="section-head">
-        <span class="section-index">02</span>
-        <h2 class="section-title">Journey</h2>
-        <p class="section-sub">Education, work and milestones in reverse-chronological order.</p>
+        <span class="section-label scramble">02 / Journey</span>
+        <h2 class="section-title mask reveal"><span>Where I've been</span></h2>
       </div>
       <ol class="timeline" data-timeline></ol>
     </section>
@@ -106,22 +114,20 @@
     <!-- SKILLS -->
     <section id="skills" class="section">
       <div class="section-head">
-        <span class="section-index">03</span>
-        <h2 class="section-title">Tech Stack</h2>
-        <p class="section-sub">Tools and platforms I work with day-to-day.</p>
+        <span class="section-label scramble">03 / Stack</span>
+        <h2 class="section-title mask reveal"><span>Tools of the trade</span></h2>
       </div>
-      <div class="skills-grid" data-skills></div>
+      <div class="skills" data-skills></div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="section-head">
-        <span class="section-index">04</span>
-        <h2 class="section-title">GitHub Projects</h2>
-        <p class="section-sub">A snapshot of what I'm building in the open.</p>
+        <span class="section-label scramble">04 / Work</span>
+        <h2 class="section-title mask reveal"><span>Selected projects</span></h2>
+        <p class="section-sub">Pulled live from GitHub — what I'm building in the open.</p>
       </div>
       <div class="projects-grid" data-projects>
-        <div class="project-card project-skeleton"></div>
         <div class="project-card project-skeleton"></div>
         <div class="project-card project-skeleton"></div>
       </div>
@@ -130,30 +136,36 @@
     <!-- CERTIFICATIONS -->
     <section id="certifications" class="section">
       <div class="section-head">
-        <span class="section-index">05</span>
-        <h2 class="section-title">Certifications</h2>
-        <p class="section-sub">Verified competencies and credentials.</p>
+        <span class="section-label scramble">05 / Credentials</span>
+        <h2 class="section-title mask reveal"><span>Certified</span></h2>
       </div>
-      <div class="certs-grid" data-certifications></div>
+      <div class="certs" data-certifications></div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact" class="section section-contact">
-      <div class="contact-card spot">
-        <div>
-          <h2 class="section-title">Let's build something.</h2>
-          <p class="section-sub">Open to interesting collaborations, open-source contributions and a good conversation about Pega, home labs or anything in between.</p>
-        </div>
-        <div class="contact-actions" data-socials></div>
-      </div>
+      <span class="section-label scramble">06 / Contact</span>
+      <h2 class="contact-big mask reveal">
+        <span>Let's build<br /><em class="serif">something great.</em></span>
+      </h2>
+      <a class="contact-mail reveal magnetic" style="--d: 150ms" data-href="personal.email">
+        <span data-bind="personal.email"></span>
+        <span class="mail-arrow" aria-hidden="true">→</span>
+      </a>
+      <div class="contact-socials reveal" style="--d: 250ms" data-socials></div>
     </section>
   </main>
 
-  <button class="to-top" aria-label="Back to top">↑</button>
-
   <footer class="footer">
-    <p>© <span id="year"></span> <span data-bind="personal.name"></span>. Crafted with vanilla HTML, CSS &amp; JS.</p>
+    <span class="footer-ghost" aria-hidden="true" data-bind="personal.name">Jan Klein</span>
+    <div class="footer-row">
+      <span>© <span id="year"></span> <span data-bind="personal.name"></span></span>
+      <span class="footer-time">GER <span data-time>--:--</span></span>
+      <span>Vanilla HTML / CSS / JS</span>
+    </div>
   </footer>
+
+  <button class="to-top" aria-label="Back to top">↑</button>
 
   <script src="assets/js/main.js"></script>
 </body>

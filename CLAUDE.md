@@ -27,9 +27,9 @@ Three pieces work together:
    - `data-href="personal.email"` — sets the `href` (currently hardcoded to a `mailto:` prefix in `main.js`)
    - `data-socials`, `data-timeline`, `data-skills`, `data-projects`, `data-certifications` — empty containers that `main.js` fills with rendered lists
 
-2. **`assets/data/portfolio.json`** — the single source of truth. Top-level keys: `personal`, `socials`, `github`, `timeline`, `skills`, `certifications`. Schema is implicit — match the existing shape when adding entries.
+2. **`assets/data/portfolio.json`** — the single source of truth. Top-level keys: `personal`, `socials`, `github`, `stats`, `timeline`, `skills`, `certifications`. Schema is implicit — match the existing shape when adding entries. Certifications live **only** under `certifications`; do not duplicate them as `timeline` entries.
 
-3. **`assets/js/main.js`** — one IIFE. `init()` (runs on `DOMContentLoaded`) loads the JSON, then calls `bindStaticFields` + a `render*` function per list section. Each renderer builds an HTML string from the JSON and assigns it to `innerHTML`. Interactive effects are wired up last, **after** the renderers (they attach listeners to rendered elements): reveal animations (`IntersectionObserver` on `.reveal`, staggered via the `--d` CSS var set inline by renderers), cursor spotlight on `.spot` cards (sets `--mx`/`--my`), 3D tilt on `[data-tilt]`, scroll progress bar / nav shadow / back-to-top, active-section nav highlighting, and the mobile nav. All motion effects respect `prefers-reduced-motion`.
+3. **`assets/js/main.js`** — one IIFE. `init()` (runs on `DOMContentLoaded`) loads the JSON, then calls `bindStaticFields` + a `render*` function per list section. Each renderer builds an HTML string from the JSON and assigns it to `innerHTML`. Interactive effects are wired up last, **after** the renderers (they attach listeners/observers to rendered elements): staggered reveals (`.reveal` + inline `--d` delay), masked heading reveals (`.mask`), per-letter hero entrance (`setupSplit` on `.split`, gated by `body.loaded`), scramble-decode on `.scramble` labels, animated counters (`.stat-value`), the skills marquee (built from `skills` names, duplicated for a seamless loop), custom cursor (fine pointers only), magnetic buttons (`.magnetic`), parallax (`[data-parallax]` + `data-speed`), Berlin local time (`[data-time]`), scroll progress / nav state / back-to-top, active-section nav highlighting, and the mobile nav. The preloader curtain adds `body.loaded`, which gates all hero entrance animations. Every motion effect respects `prefers-reduced-motion` (the CSS fallback also un-hides `.ch`/`.mask` content, so keep that in sync when adding gated animations).
 
 ### Container selectors — one vs. many
 
@@ -51,13 +51,13 @@ Every renderer interpolates JSON values straight into `innerHTML` (titles, descr
 
 ### Icons
 
-Skill and social icons load from `https://cdn.simpleicons.org/{slug}/{color}`. The `slug` field in `skills` and `socials` must be a valid [Simple Icons](https://simpleicons.org) slug. If the request 404s, the renderer's inline `onerror` swaps in a single-letter fallback.
+Skill and social icons load from `https://cdn.simpleicons.org/{slug}/{color}`. The `slug` field in `skills` and `socials` must be a valid [Simple Icons](https://simpleicons.org) slug. The design is monochrome: all icons are requested in a single gray (`ICON_GRAY` in `main.js`) and brightened on hover via CSS — don't reintroduce per-icon colors. If the request 404s, the renderer's inline `onerror` swaps in a single-letter fallback.
 
 ### GitHub projects
 
 `loadProjects()` calls the GitHub REST API live when `github.username` is non-empty, filters out forks/archived repos, sorts by stars then recency, and shows the top 6. If the username is empty or the request fails, `github.fallbackProjects` is rendered instead. The page works fully offline-of-GitHub via this fallback.
 
-Project cards show a colored dot for the repo's primary language. Colors come from the hardcoded `LANG_COLORS` map at the top of `main.js`; unknown languages fall back to `var(--accent)`. Add an entry there to give a new language its own color.
+Each project card shows a live repo preview image from `https://opengraph.githubassets.com/1/{owner}/{repo}` (derived from the repo URL in `previewUrl()`); if the image fails to load, the inline `onerror` removes the media block and the card renders text-only. The language dot colors come from the hardcoded `LANG_COLORS` map at the top of `main.js`; unknown languages fall back to `var(--accent)`.
 
 ## Deployment
 

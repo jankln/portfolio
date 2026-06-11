@@ -1,5 +1,6 @@
 (() => {
   const ICON_BASE = "https://cdn.simpleicons.org";
+  const ICON_GRAY = "8d8a93";
 
   const LANG_COLORS = {
     JavaScript: "#f1e05a", TypeScript: "#3178c6", Python: "#3572A5",
@@ -10,6 +11,7 @@
   };
 
   const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const FINE_POINTER = window.matchMedia("(pointer: fine)").matches;
 
   const $  = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -17,7 +19,7 @@
   const getPath = (obj, path) =>
     path.split(".").reduce((acc, key) => (acc == null ? acc : acc[key]), obj);
 
-  const iconUrl = (slug, color = "ffffff") => `${ICON_BASE}/${slug}/${color}`;
+  const iconUrl = (slug, color = ICON_GRAY) => `${ICON_BASE}/${slug}/${color}`;
 
   function bindStaticFields(data) {
     $$("[data-bind]").forEach((el) => {
@@ -30,16 +32,17 @@
     });
   }
 
+  /* ---------- renderers ---------- */
+
   function renderSocials(data) {
     const html = data.socials
       .map((s) => {
         const letter = (s.name || "?").trim().charAt(0).toUpperCase();
         const fallback = `this.outerHTML='<span class=\\'social-fallback\\'>${letter}</span>'`;
         return `
-        <a href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${s.name}">
-          <img src="${iconUrl(s.icon, "9595a3")}" alt="" loading="lazy" onerror="${fallback}" />
+        <a class="social-chip" href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${s.name}">
+          <img src="${iconUrl(s.icon)}" alt="" loading="lazy" onerror="${fallback}" />
           <span>${s.name}</span>
-          ${s.handle ? `<span class="handle">${s.handle}</span>` : ""}
         </a>`;
       })
       .join("");
@@ -52,9 +55,9 @@
     root.innerHTML = data.timeline
       .map(
         (item, i) => `
-        <li class="reveal" style="--d:${i * 90}ms">
-          <div class="timeline-card spot">
-            <div class="timeline-date">${item.date}</div>
+        <li class="timeline-item reveal" style="--d:${i * 100}ms">
+          <span class="timeline-year">${item.date}</span>
+          <div class="timeline-body">
             <h3 class="timeline-title">${item.title}</h3>
             <p class="timeline-org">${item.org}</p>
             <p class="timeline-desc">${item.description}</p>
@@ -70,19 +73,43 @@
   function renderSkills(data) {
     const root = $("[data-skills]");
     if (!root) return;
-    root.innerHTML = data.skills
-      .map((s, i) => {
-        const letter = (s.name || "?").trim().charAt(0).toUpperCase();
-        const fallback = `this.outerHTML='<span class=\\'skill-fallback\\'>${letter}</span>'`;
+    const groups = data.skills.reduce((acc, s) => {
+      (acc[s.category] = acc[s.category] || []).push(s);
+      return acc;
+    }, {});
+    root.innerHTML = Object.entries(groups)
+      .map(([cat, items], gi) => {
+        const pills = items
+          .map((s) => {
+            const letter = (s.name || "?").trim().charAt(0).toUpperCase();
+            const fallback = `this.outerHTML='<span class=\\'skill-fallback\\'>${letter}</span>'`;
+            return `
+            <span class="skill-pill">
+              <img src="${iconUrl(s.slug)}" alt="" loading="lazy" onerror="${fallback}" />
+              ${s.name}
+            </span>`;
+          })
+          .join("");
         return `
-        <div class="skill-card spot reveal" style="--d:${i * 40}ms">
-          <div class="skill-icon">
-            <img src="${iconUrl(s.slug)}" alt="${s.name}" loading="lazy" onerror="${fallback}" />
-          </div>
-          <div class="skill-name">${s.name}</div>
-          <div class="skill-cat">${s.category}</div>
+        <div class="skill-group reveal" style="--d:${gi * 80}ms">
+          <span class="skill-group-label">${cat}</span>
+          <div class="skill-pills">${pills}</div>
         </div>`;
       })
+      .join("");
+  }
+
+  function renderStats(data) {
+    const root = $("[data-stats]");
+    if (!root || !data.stats) return;
+    root.innerHTML = data.stats
+      .map(
+        (s, i) => `
+        <div class="stat reveal" style="--d:${i * 100}ms">
+          <span class="stat-value" data-target="${s.value}" data-suffix="${s.suffix || ""}">0${s.suffix || ""}</span>
+          <span class="stat-label">${s.label}</span>
+        </div>`
+      )
       .join("");
   }
 
@@ -92,35 +119,51 @@
     root.innerHTML = data.certifications
       .map(
         (c, i) => `
-        <a class="cert-card spot reveal" style="--d:${i * 90}ms" href="${c.url}" target="_blank" rel="noopener noreferrer">
-          <span class="cert-badge">● Verified</span>
-          <h3 class="cert-title">${c.title}</h3>
-          <p class="cert-issuer">${c.issuer}</p>
-          <p class="cert-desc">${c.description}</p>
-          <div class="cert-foot">
-            <span>${c.date}</span>
-            <span>View →</span>
+        <a class="cert-row reveal" style="--d:${i * 100}ms" href="${c.url}" target="_blank" rel="noopener noreferrer">
+          <span class="cert-index">0${i + 1}</span>
+          <div class="cert-main">
+            <h3 class="cert-title">${c.title}</h3>
+            <p class="cert-issuer">${c.issuer} — ${c.description}</p>
           </div>
+          <span class="cert-year">${c.date}</span>
+          <span class="cert-arrow" aria-hidden="true">↗</span>
         </a>`
       )
       .join("");
   }
 
+  /* repo preview via GitHub's OpenGraph image service */
+  function previewUrl(repoUrl) {
+    const path = (repoUrl || "")
+      .replace(/^https:\/\/github\.com\//, "")
+      .replace(/\/+$/, "");
+    return /^[^/]+\/[^/]+$/.test(path)
+      ? `https://opengraph.githubassets.com/1/${path}`
+      : "";
+  }
+
   function projectCard(p, i) {
     const langColor = LANG_COLORS[p.language] || "var(--accent)";
+    const preview = previewUrl(p.url);
+    const media = preview
+      ? `<div class="project-media">
+           <img src="${preview}" alt="Preview of ${p.name}" loading="lazy"
+                onerror="this.closest('.project-media').remove()" />
+         </div>`
+      : "";
     return `
-      <a class="project-card spot reveal" style="--d:${i * 70}ms" href="${p.url}" target="_blank" rel="noopener noreferrer">
-        <div class="project-name">
-          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5v-9zm10.5-1h-8A1 1 0 0 0 3.5 2.5v6.708A2.486 2.486 0 0 1 4.5 9h8v-7.5zm-6.875 9a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75z"/>
-          </svg>
-          ${p.name}
-          <span class="project-arrow" aria-hidden="true">↗</span>
-        </div>
-        <p class="project-desc">${p.description || "No description provided."}</p>
-        <div class="project-meta">
-          ${p.language ? `<span><span class="lang-dot" style="background:${langColor};color:${langColor}"></span>${p.language}</span>` : ""}
-          ${p.stars != null ? `<span>★ ${p.stars}</span>` : ""}
+      <a class="project-card reveal" style="--d:${(i % 2) * 100}ms" href="${p.url}" target="_blank" rel="noopener noreferrer">
+        ${media}
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-name">${p.name}</h3>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </div>
+          <p class="project-desc">${p.description || "No description provided."}</p>
+          <div class="project-meta">
+            ${p.language ? `<span><span class="lang-dot" style="background:${langColor}"></span>${p.language}</span>` : ""}
+            ${p.stars != null ? `<span>★ ${p.stars}</span>` : ""}
+          </div>
         </div>
       </a>`;
   }
@@ -161,6 +204,8 @@
     renderProjects(live && live.length ? live : data.github.fallbackProjects);
   }
 
+  /* ---------- effects ---------- */
+
   function setupReveal() {
     const io = new IntersectionObserver(
       (entries) => {
@@ -171,46 +216,184 @@
           }
         });
       },
-      { rootMargin: "0px 0px -50px 0px", threshold: 0.05 }
+      { rootMargin: "0px 0px -60px 0px", threshold: 0.05 }
     );
     $$(".reveal").forEach((el) => io.observe(el));
   }
 
-  /* spotlight: track pointer per card so ::after glow follows the cursor */
-  function setupSpotlight() {
-    if (REDUCED_MOTION) return;
-    $$(".spot").forEach((card) => {
-      card.addEventListener("pointermove", (e) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-        card.style.setProperty("--my", `${e.clientY - r.top}px`);
+  /* split hero name into per-letter spans for the staggered entrance */
+  function setupSplit() {
+    $$(".split").forEach((el) => {
+      const text = el.textContent;
+      el.innerHTML = text
+        .split("")
+        .map((ch, i) => (ch === " " ? " " : `<span class="ch" style="--ci:${i}">${ch}</span>`))
+        .join("");
+    });
+  }
+
+  /* decode/scramble effect on section labels when they scroll into view */
+  function setupScramble() {
+    const CHARS = "!<>-_/[]{}=+*^?#abcdefghijklmnop";
+    const run = (el) => {
+      const target = el.textContent;
+      if (REDUCED_MOTION) return;
+      let frame = 0;
+      const total = Math.max(14, target.length * 2);
+      const tick = () => {
+        frame++;
+        const settled = Math.floor((frame / total) * target.length);
+        el.textContent = target
+          .split("")
+          .map((ch, i) =>
+            i < settled || ch === " " || ch === "/"
+              ? ch
+              : CHARS[Math.floor(Math.random() * CHARS.length)]
+          )
+          .join("");
+        if (settled < target.length) requestAnimationFrame(tick);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            run(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    $$(".scramble").forEach((el) => io.observe(el));
+  }
+
+  /* animated counters in the stats row */
+  function setupCounters() {
+    const animate = (el) => {
+      const target = Number(el.dataset.target) || 0;
+      const suffix = el.dataset.suffix || "";
+      if (REDUCED_MOTION) {
+        el.textContent = `${target}${suffix}`;
+        return;
+      }
+      const start = performance.now();
+      const dur = 1300;
+      const tick = (now) => {
+        const t = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = `${Math.round(target * eased)}${suffix}`;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            animate(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    $$(".stat-value").forEach((el) => io.observe(el));
+  }
+
+  /* infinite marquee built from skill names (two copies for a seamless loop) */
+  function setupMarquee(data) {
+    const track = $("[data-marquee]");
+    if (!track) return;
+    const half = data.skills
+      .map((s) => `<span class="marquee-item">${s.name}</span><span class="marquee-sep">✦</span>`)
+      .join("");
+    track.innerHTML = `<span class="marquee-half">${half}</span><span class="marquee-half">${half}</span>`;
+  }
+
+  /* custom cursor: instant dot + lerped trailing ring, desktop only */
+  function setupCursor() {
+    const dot = $(".cursor-dot");
+    const ring = $(".cursor-ring");
+    if (!dot || !ring || !FINE_POINTER || REDUCED_MOTION) {
+      if (dot) dot.remove();
+      if (ring) ring.remove();
+      return;
+    }
+    document.documentElement.classList.add("has-cursor");
+    let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y;
+    document.addEventListener("pointermove", (e) => {
+      x = e.clientX;
+      y = e.clientY;
+      dot.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    (function loop() {
+      rx += (x - rx) * 0.16;
+      ry += (y - ry) * 0.16;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener("pointerover", (e) => {
+      if (e.target.closest("a, button")) document.documentElement.classList.add("cursor-on");
+    });
+    document.addEventListener("pointerout", (e) => {
+      if (e.target.closest("a, button")) document.documentElement.classList.remove("cursor-on");
+    });
+  }
+
+  /* buttons gently follow the cursor */
+  function setupMagnetic() {
+    if (!FINE_POINTER || REDUCED_MOTION) return;
+    $$(".magnetic").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        el.style.transform = `translate(${dx * 0.22}px, ${dy * 0.22}px)`;
+      });
+      el.addEventListener("pointerleave", () => {
+        el.style.transform = "";
       });
     });
   }
 
-  /* 3D tilt on the hero code card */
-  function setupTilt() {
+  function setupParallax() {
     if (REDUCED_MOTION) return;
-    const card = $("[data-tilt]");
-    if (!card) return;
+    const els = $$("[data-parallax]");
+    if (!els.length) return;
     let raf = 0;
-    card.addEventListener("pointermove", (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        card.style.transform =
-          `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 9).toFixed(2)}deg) translateY(-2px)`;
-      });
-    });
-    card.addEventListener("pointerleave", () => {
-      cancelAnimationFrame(raf);
-      card.style.transform = "";
-    });
+    window.addEventListener(
+      "scroll",
+      () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          els.forEach((el) => {
+            const speed = Number(el.dataset.speed) || 0.2;
+            el.style.transform = `translateY(${window.scrollY * speed}px)`;
+          });
+        });
+      },
+      { passive: true }
+    );
   }
 
-  /* scroll progress bar + nav shadow + back-to-top, one passive listener */
+  /* local time (Berlin) in nav + footer */
+  function setupTime() {
+    const els = $$("[data-time]");
+    if (!els.length) return;
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Berlin",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const update = () => els.forEach((el) => (el.textContent = fmt.format(new Date())));
+    update();
+    setInterval(update, 15000);
+  }
+
+  /* scroll progress bar + nav state + back-to-top, one passive listener */
   function setupScrollEffects() {
     const bar = $(".scroll-progress");
     const nav = $(".nav");
@@ -231,7 +414,6 @@
     }
   }
 
-  /* highlight the nav link of the section currently in view */
   function setupActiveNav() {
     const links = $$('.nav-links a[href^="#"]');
     const byId = new Map(links.map((l) => [l.getAttribute("href").slice(1), l]));
@@ -266,6 +448,24 @@
     });
   }
 
+  /* intro curtain; body.loaded gates the hero entrance animations */
+  function setupPreloader() {
+    const pre = $(".preloader");
+    const finish = () => {
+      document.body.classList.add("loaded");
+      if (pre) {
+        pre.classList.add("done");
+        setTimeout(() => pre.remove(), 1200);
+      }
+    };
+    if (!pre || REDUCED_MOTION) {
+      if (pre) pre.remove();
+      document.body.classList.add("loaded");
+      return;
+    }
+    setTimeout(finish, 900);
+  }
+
   async function loadData() {
     try {
       const res = await fetch("assets/data/portfolio.json", { cache: "no-cache" });
@@ -278,23 +478,32 @@
   }
 
   async function init() {
+    setupPreloader();
+
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
     const data = await loadData();
-    if (!data) return;
+    if (data) {
+      bindStaticFields(data);
+      renderSocials(data);
+      renderTimeline(data);
+      renderSkills(data);
+      renderStats(data);
+      renderCertifications(data);
+      setupMarquee(data);
+      await loadProjects(data);
+    }
 
-    bindStaticFields(data);
-    renderSocials(data);
-    renderTimeline(data);
-    renderSkills(data);
-    renderCertifications(data);
-    await loadProjects(data);
-
-    // mark generated sections as reveal-eligible after they exist
+    // effects attach to rendered elements, so they run after the renderers
+    setupSplit();
     setupReveal();
-    setupSpotlight();
-    setupTilt();
+    setupScramble();
+    setupCounters();
+    setupCursor();
+    setupMagnetic();
+    setupParallax();
+    setupTime();
     setupScrollEffects();
     setupActiveNav();
     setupNav();

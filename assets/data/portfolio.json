@@ -42,27 +42,18 @@
       }
     ]
   },
+  "stats": [
+    { "value": 3, "suffix": "", "label": "Years at Deutsche Telekom" },
+    { "value": 2, "suffix": "", "label": "Pega certifications" },
+    { "value": 16, "suffix": "+", "label": "Public repositories" }
+  ],
   "timeline": [
     {
-      "date": "2023 — Present",
+      "date": "2023 — Now",
       "title": "Dual Student & Pega Architect",
       "org": "Deutsche Telekom AG",
       "description": "Designing and implementing Pega-based business process applications while completing a Bachelor of Science in Business Informatics through the dual-study program.",
       "tags": ["Pega", "BPM", "Enterprise"]
-    },
-    {
-      "date": "2024",
-      "title": "Pega Certified System Architect",
-      "org": "Pegasystems",
-      "description": "Earned the System Architect certification, covering case management, data modeling, UI, integrations and security on the Pega Platform.",
-      "tags": ["Certification"]
-    },
-    {
-      "date": "2023",
-      "title": "Pega Certified Business Architect",
-      "org": "Pegasystems",
-      "description": "Earned the Business Architect certification, covering DCO, case design, application development and stakeholder collaboration.",
-      "tags": ["Certification"]
     },
     {
       "date": "2023",
