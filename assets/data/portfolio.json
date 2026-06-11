@@ -18,6 +18,7 @@
   ],
   "github": {
     "username": "jankln",
+    "featured": ["LocalMeetingRecorder", "tracksub", "AutoGrowing", "404Runner", "MidnightSpin", "portfolio"],
     "fallbackProjects": [
       {
         "name": "LocalMeetingRecorder",
@@ -80,6 +81,28 @@
     { "name": "HTML & CSS", "slug": "html5", "category": "Web" },
     { "name": "Markdown", "slug": "markdown", "category": "Tools" }
   ],
+  "caseStudy": {
+    "name": "LocalMeetingRecorder",
+    "tagline": "Meeting notes, without the cloud.",
+    "intro": "A desktop app that records meetings and turns them into transcripts and AI summaries — fully offline, because confidential conversations shouldn't travel to someone else's servers.",
+    "blocks": [
+      {
+        "label": "Problem",
+        "text": "Cloud transcription tools are convenient, but every word of a confidential meeting ends up on external servers. In an enterprise context that is usually a hard no — so most meetings simply never get proper notes."
+      },
+      {
+        "label": "Approach",
+        "text": "A Python desktop app built around faster-whisper: one-click screen and microphone recording through a minimal Tkinter GUI, FFmpeg for capture, and locally-run Whisper models for transcription plus bullet-point summaries. Model size is a deliberate user choice — from ~39 MB (fast) to ~1.5 GB (most accurate) — trading speed for quality on the user's own hardware."
+      },
+      {
+        "label": "Outcome",
+        "text": "Recordings, transcripts and summaries are organized per meeting session and never leave the machine. No accounts, no API keys, no cloud — install, click record, get notes."
+      }
+    ],
+    "stack": ["Python", "Tkinter", "faster-whisper", "PyTorch", "FFmpeg"],
+    "url": "https://github.com/jankln/LocalMeetingRecorder",
+    "image": "https://opengraph.githubassets.com/1/jankln/LocalMeetingRecorder"
+  },
   "certifications": [
     {
       "title": "Pega Certified Business Architect",

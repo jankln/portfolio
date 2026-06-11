@@ -174,7 +174,7 @@
     root.innerHTML = items.map(projectCard).join("");
   }
 
-  async function fetchGithubProjects(username) {
+  async function fetchGithubProjects(username, featured = []) {
     if (!username) return null;
     try {
       const res = await fetch(
@@ -183,10 +183,16 @@
       );
       if (!res.ok) return null;
       const repos = await res.json();
-      return repos
-        .filter((r) => !r.fork && !r.archived)
-        .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (new Date(b.updated_at) - new Date(a.updated_at)))
-        .slice(0, 6)
+      const pool = repos.filter((r) => !r.fork && !r.archived);
+      // curated list from portfolio.json wins; fall back to stars/recency
+      const picked = featured.length
+        ? featured
+            .map((name) => pool.find((r) => r.name.toLowerCase() === name.toLowerCase()))
+            .filter(Boolean)
+        : pool
+            .sort((a, b) => (b.stargazers_count - a.stargazers_count) || (new Date(b.updated_at) - new Date(a.updated_at)))
+            .slice(0, 6);
+      return picked
         .map((r) => ({
           name: r.name,
           description: r.description,
@@ -200,8 +206,49 @@
   }
 
   async function loadProjects(data) {
-    const live = await fetchGithubProjects(data.github.username);
+    const live = await fetchGithubProjects(data.github.username, data.github.featured || []);
     renderProjects(live && live.length ? live : data.github.fallbackProjects);
+  }
+
+  function renderCaseStudy(data) {
+    const root = $("[data-casestudy]");
+    const cs = data.caseStudy;
+    if (!root || !cs) {
+      const section = document.getElementById("casestudy");
+      if (section && !cs) section.remove();
+      return;
+    }
+    const blocks = (cs.blocks || [])
+      .map(
+        (b, i) => `
+        <div class="case-block reveal" style="--d:${i * 110}ms">
+          <span class="case-block-label">${b.label}</span>
+          <p>${b.text}</p>
+        </div>`
+      )
+      .join("");
+    const stack = (cs.stack || [])
+      .map((s) => `<span class="tag">${s}</span>`)
+      .join("");
+    root.innerHTML = `
+      <div class="case-media reveal">
+        <a href="${cs.url}" target="_blank" rel="noopener noreferrer" aria-label="View ${cs.name} on GitHub">
+          <img src="${cs.image}" alt="Preview of ${cs.name}" loading="lazy"
+               onerror="this.closest('.case-media').remove()" />
+        </a>
+      </div>
+      <div class="case-content">
+        <h3 class="case-name reveal">${cs.name}</h3>
+        <p class="case-tagline serif reveal" style="--d:60ms">${cs.tagline}</p>
+        <p class="case-intro reveal" style="--d:120ms">${cs.intro}</p>
+        ${blocks}
+        <div class="case-foot reveal" style="--d:200ms">
+          <div class="case-stack">${stack}</div>
+          <a class="btn btn-line magnetic" href="${cs.url}" target="_blank" rel="noopener noreferrer">
+            View on GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>`;
   }
 
   /* ---------- effects ---------- */
@@ -490,6 +537,7 @@
       renderTimeline(data);
       renderSkills(data);
       renderStats(data);
+      renderCaseStudy(data);
       renderCertifications(data);
       setupMarquee(data);
       await loadProjects(data);
