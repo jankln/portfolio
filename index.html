@@ -16,8 +16,12 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="background-grid" aria-hidden="true"></div>
-  <div class="background-glow" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="aurora"><span></span><span></span><span></span></div>
+    <div class="bg-noise"></div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <header class="nav">
     <div class="nav-inner">
@@ -46,7 +50,7 @@
         <p class="eyebrow"><span class="pulse"></span> <span data-bind="personal.location"></span> · Available for collaboration</p>
         <h1 class="hero-title">
           Hi, I'm <span class="gradient-text" data-bind="personal.firstName"></span>.<br />
-          <span data-bind="personal.title"></span>
+          <span data-bind="personal.title"></span><span class="caret" aria-hidden="true"></span>
         </h1>
         <p class="hero-subtitle" data-bind="personal.tagline"></p>
         <div class="hero-cta">
@@ -55,7 +59,7 @@
         </div>
         <div class="hero-meta" data-socials></div>
       </div>
-      <div class="hero-card" aria-hidden="true">
+      <div class="hero-card" data-tilt aria-hidden="true">
         <div class="hero-card-header">
           <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
           <span class="hero-card-title">~/whoami</span>
@@ -69,6 +73,7 @@
   born: <span class="c-string" data-bind="personal.birthday"></span>,
 };</pre>
       </div>
+      <div class="scroll-hint" aria-hidden="true"></div>
     </section>
 
     <!-- ABOUT -->
@@ -79,7 +84,7 @@
       </div>
       <div class="about-grid">
         <p class="about-bio" data-bind="personal.bio"></p>
-        <ul class="about-facts">
+        <ul class="about-facts spot">
           <li><span class="fact-label">Role</span><span data-bind="personal.title"></span></li>
           <li><span class="fact-label">Studies</span><span data-bind="personal.subtitle"></span></li>
           <li><span class="fact-label">Based in</span><span data-bind="personal.location"></span></li>
@@ -134,7 +139,7 @@
 
     <!-- CONTACT -->
     <section id="contact" class="section section-contact">
-      <div class="contact-card">
+      <div class="contact-card spot">
         <div>
           <h2 class="section-title">Let's build something.</h2>
           <p class="section-sub">Open to interesting collaborations, open-source contributions and a good conversation about Pega, home labs or anything in between.</p>
@@ -143,6 +148,8 @@
       </div>
     </section>
   </main>
+
+  <button class="to-top" aria-label="Back to top">↑</button>
 
   <footer class="footer">
     <p>© <span id="year"></span> <span data-bind="personal.name"></span>. Crafted with vanilla HTML, CSS &amp; JS.</p>

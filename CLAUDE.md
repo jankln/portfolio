@@ -29,7 +29,7 @@ Three pieces work together:
 
 2. **`assets/data/portfolio.json`** — the single source of truth. Top-level keys: `personal`, `socials`, `github`, `timeline`, `skills`, `certifications`. Schema is implicit — match the existing shape when adding entries.
 
-3. **`assets/js/main.js`** — one IIFE. `init()` (runs on `DOMContentLoaded`) loads the JSON, then calls `bindStaticFields` + a `render*` function per list section. Each renderer builds an HTML string from the JSON and assigns it to `innerHTML`. Reveal animations (`IntersectionObserver` on `.reveal` elements) and the mobile nav are wired up last.
+3. **`assets/js/main.js`** — one IIFE. `init()` (runs on `DOMContentLoaded`) loads the JSON, then calls `bindStaticFields` + a `render*` function per list section. Each renderer builds an HTML string from the JSON and assigns it to `innerHTML`. Interactive effects are wired up last, **after** the renderers (they attach listeners to rendered elements): reveal animations (`IntersectionObserver` on `.reveal`, staggered via the `--d` CSS var set inline by renderers), cursor spotlight on `.spot` cards (sets `--mx`/`--my`), 3D tilt on `[data-tilt]`, scroll progress bar / nav shadow / back-to-top, active-section nav highlighting, and the mobile nav. All motion effects respect `prefers-reduced-motion`.
 
 ### Container selectors — one vs. many
 

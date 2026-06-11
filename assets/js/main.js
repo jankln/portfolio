@@ -8,6 +8,8 @@
     Vue: "#41b883", Svelte: "#ff3e00", Markdown: "#083fa1",
   };
 
+  const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const $  = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -48,9 +50,9 @@
     if (!root) return;
     root.innerHTML = data.timeline
       .map(
-        (item) => `
-        <li class="reveal">
-          <div class="timeline-card">
+        (item, i) => `
+        <li class="reveal" style="--d:${i * 90}ms">
+          <div class="timeline-card spot">
             <div class="timeline-date">${item.date}</div>
             <h3 class="timeline-title">${item.title}</h3>
             <p class="timeline-org">${item.org}</p>
@@ -68,11 +70,11 @@
     const root = $("[data-skills]");
     if (!root) return;
     root.innerHTML = data.skills
-      .map((s) => {
+      .map((s, i) => {
         const letter = (s.name || "?").trim().charAt(0).toUpperCase();
         const fallback = `this.outerHTML='<span class=\\'skill-fallback\\'>${letter}</span>'`;
         return `
-        <div class="skill-card reveal">
+        <div class="skill-card spot reveal" style="--d:${i * 40}ms">
           <div class="skill-icon">
             <img src="${iconUrl(s.slug)}" alt="${s.name}" loading="lazy" onerror="${fallback}" />
           </div>
@@ -88,8 +90,8 @@
     if (!root) return;
     root.innerHTML = data.certifications
       .map(
-        (c) => `
-        <a class="cert-card reveal" href="${c.url}" target="_blank" rel="noopener noreferrer">
+        (c, i) => `
+        <a class="cert-card spot reveal" style="--d:${i * 90}ms" href="${c.url}" target="_blank" rel="noopener noreferrer">
           <span class="cert-badge">● Verified</span>
           <h3 class="cert-title">${c.title}</h3>
           <p class="cert-issuer">${c.issuer}</p>
@@ -103,19 +105,20 @@
       .join("");
   }
 
-  function projectCard(p) {
+  function projectCard(p, i) {
     const langColor = LANG_COLORS[p.language] || "var(--accent)";
     return `
-      <a class="project-card reveal" href="${p.url}" target="_blank" rel="noopener noreferrer">
+      <a class="project-card spot reveal" style="--d:${i * 70}ms" href="${p.url}" target="_blank" rel="noopener noreferrer">
         <div class="project-name">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5v-9zm10.5-1h-8A1 1 0 0 0 3.5 2.5v6.708A2.486 2.486 0 0 1 4.5 9h8v-7.5zm-6.875 9a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75z"/>
           </svg>
           ${p.name}
+          <span class="project-arrow" aria-hidden="true">↗</span>
         </div>
         <p class="project-desc">${p.description || "No description provided."}</p>
         <div class="project-meta">
-          ${p.language ? `<span><span class="lang-dot" style="background:${langColor}"></span>${p.language}</span>` : ""}
+          ${p.language ? `<span><span class="lang-dot" style="background:${langColor};color:${langColor}"></span>${p.language}</span>` : ""}
           ${p.stars != null ? `<span>★ ${p.stars}</span>` : ""}
         </div>
       </a>`;
@@ -172,6 +175,80 @@
     $$(".reveal").forEach((el) => io.observe(el));
   }
 
+  /* spotlight: track pointer per card so ::after glow follows the cursor */
+  function setupSpotlight() {
+    if (REDUCED_MOTION) return;
+    $$(".spot").forEach((card) => {
+      card.addEventListener("pointermove", (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        card.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
+  /* 3D tilt on the hero code card */
+  function setupTilt() {
+    if (REDUCED_MOTION) return;
+    const card = $("[data-tilt]");
+    if (!card) return;
+    let raf = 0;
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        card.style.transform =
+          `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 9).toFixed(2)}deg) translateY(-2px)`;
+      });
+    });
+    card.addEventListener("pointerleave", () => {
+      cancelAnimationFrame(raf);
+      card.style.transform = "";
+    });
+  }
+
+  /* scroll progress bar + nav shadow + back-to-top, one passive listener */
+  function setupScrollEffects() {
+    const bar = $(".scroll-progress");
+    const nav = $(".nav");
+    const toTop = $(".to-top");
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const y = window.scrollY;
+      if (bar) bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+      if (nav) nav.classList.toggle("scrolled", y > 10);
+      if (toTop) toTop.classList.toggle("show", y > 600);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    if (toTop) {
+      toTop.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: REDUCED_MOTION ? "auto" : "smooth" })
+      );
+    }
+  }
+
+  /* highlight the nav link of the section currently in view */
+  function setupActiveNav() {
+    const links = $$('.nav-links a[href^="#"]');
+    const byId = new Map(links.map((l) => [l.getAttribute("href").slice(1), l]));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          const link = byId.get(en.target.id);
+          if (!link) return;
+          links.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    $$("main section[id]").forEach((s) => io.observe(s));
+  }
+
   function setupNav() {
     const toggle = $(".nav-toggle");
     const links = $(".nav-links");
@@ -215,6 +292,10 @@
 
     // mark generated sections as reveal-eligible after they exist
     setupReveal();
+    setupSpotlight();
+    setupTilt();
+    setupScrollEffects();
+    setupActiveNav();
     setupNav();
   }
 
