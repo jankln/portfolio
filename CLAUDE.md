@@ -57,7 +57,7 @@ Skill and social icons load from `https://cdn.simpleicons.org/{slug}/{color}`. T
 
 `loadProjects()` calls the GitHub REST API live when `github.username` is non-empty, filters out forks/archived repos, sorts by stars then recency, and shows the top 6. If the username is empty or the request fails, `github.fallbackProjects` is rendered instead. The page works fully offline-of-GitHub via this fallback.
 
-Each project card shows a live repo preview image from `https://opengraph.githubassets.com/1/{owner}/{repo}` (derived from the repo URL in `previewUrl()`); if the image fails to load, the inline `onerror` removes the media block and the card renders text-only. The language dot colors come from the hardcoded `LANG_COLORS` map at the top of `main.js`; unknown languages fall back to `var(--accent)`.
+Each project card shows a live repo preview image from `https://opengraph.githubassets.com/1/{owner}/{repo}` (derived from the repo URL in `previewUrl()`); if the image fails to load, the inline `onerror` removes the media block and the card renders text-only. GitHub's OG cards are white, so the CSS folds them into the dark design with a `grayscale + invert` filter chain, and a left-anchored 3:2 crop hides the avatar (which would render as a photo negative under the invert). Language dots are monochrome (`var(--dim)`, accent on card hover) — there is deliberately no per-language color map.
 
 ## Deployment
 

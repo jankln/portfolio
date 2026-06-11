@@ -2,14 +2,6 @@
   const ICON_BASE = "https://cdn.simpleicons.org";
   const ICON_GRAY = "8d8a93";
 
-  const LANG_COLORS = {
-    JavaScript: "#f1e05a", TypeScript: "#3178c6", Python: "#3572A5",
-    Java: "#b07219", Shell: "#89e051", HTML: "#e34c26", CSS: "#563d7c",
-    Go: "#00ADD8", Rust: "#dea584", "C++": "#f34b7d", C: "#555555",
-    Vue: "#41b883", Svelte: "#ff3e00", Markdown: "#083fa1",
-    PHP: "#4F5D95", "C#": "#178600",
-  };
-
   const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const FINE_POINTER = window.matchMedia("(pointer: fine)").matches;
 
@@ -143,7 +135,6 @@
   }
 
   function projectCard(p, i) {
-    const langColor = LANG_COLORS[p.language] || "var(--accent)";
     const preview = previewUrl(p.url);
     const media = preview
       ? `<div class="project-media">
@@ -161,7 +152,7 @@
           </div>
           <p class="project-desc">${p.description || "No description provided."}</p>
           <div class="project-meta">
-            ${p.language ? `<span><span class="lang-dot" style="background:${langColor}"></span>${p.language}</span>` : ""}
+            ${p.language ? `<span><span class="lang-dot"></span>${p.language}</span>` : ""}
             ${p.stars != null ? `<span>★ ${p.stars}</span>` : ""}
           </div>
         </div>
