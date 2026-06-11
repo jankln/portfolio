@@ -6,6 +6,7 @@
     Java: "#b07219", Shell: "#89e051", HTML: "#e34c26", CSS: "#563d7c",
     Go: "#00ADD8", Rust: "#dea584", "C++": "#f34b7d", C: "#555555",
     Vue: "#41b883", Svelte: "#ff3e00", Markdown: "#083fa1",
+    PHP: "#4F5D95", "C#": "#178600",
   };
 
   const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

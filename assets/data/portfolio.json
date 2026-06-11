@@ -12,32 +12,32 @@
     "bio": "Dual student at Deutsche Telekom AG combining studies in Business Informatics with hands-on work as a Pega Business & System Architect. I run my own home server, love open source and AI, and enjoy turning messy business processes into clean, low-code automation."
   },
   "socials": [
-    { "name": "GitHub", "url": "https://github.com/", "icon": "github", "handle": "@your-handle" },
+    { "name": "GitHub", "url": "https://github.com/jankln", "icon": "github", "handle": "@jankln" },
     { "name": "LinkedIn", "url": "https://linkedin.com/in/", "icon": "linkedin", "handle": "Jan Klein" },
     { "name": "Email", "url": "mailto:kleinjan826@gmail.com", "icon": "gmail", "handle": "kleinjan826@gmail.com" }
   ],
   "github": {
-    "username": "",
+    "username": "jankln",
     "fallbackProjects": [
       {
-        "name": "homelab",
-        "description": "Infrastructure-as-code for my self-hosted home server: Docker, reverse proxy, monitoring.",
-        "url": "https://github.com/",
-        "language": "Shell",
-        "stars": 0
+        "name": "LocalMeetingRecorder",
+        "description": "Record and transcribe meetings fully locally — no cloud, no data leaves your machine.",
+        "url": "https://github.com/jankln/LocalMeetingRecorder",
+        "language": "Python",
+        "stars": 2
       },
       {
-        "name": "pega-workshop-notes",
-        "description": "Notes, patterns and snippets gathered while studying for Pega Certified Architect exams.",
-        "url": "https://github.com/",
-        "language": "Markdown",
-        "stars": 0
+        "name": "AutoGrowing",
+        "description": "Automated plant-growing system.",
+        "url": "https://github.com/jankln/AutoGrowing",
+        "language": "PHP",
+        "stars": 1
       },
       {
         "name": "portfolio",
         "description": "This portfolio — a static, framework-free site you can self-host anywhere.",
-        "url": "https://github.com/",
-        "language": "HTML",
+        "url": "https://github.com/jankln/portfolio",
+        "language": "CSS",
         "stars": 0
       }
     ]
