@@ -20,21 +20,42 @@
   ],
   "github": {
     "username": "jankln",
-    "featured": ["LocalMeetingRecorder", "tracksub", "AutoGrowing", "404Runner", "MidnightSpin", "portfolio"],
+    "featured": ["HomeLabSetup", "LocalMeetingRecorder", "tracksub", "AutoGrowing", "404Runner", "portfolio"],
     "fallbackProjects": [
       {
+        "name": "HomeLabSetup",
+        "description": "Self-hosted home server stack on a Raspberry Pi 5 — media automation, private cloud, photo backup, smart home, SSO and full monitoring. Zero open ports, all Docker Compose.",
+        "url": "https://github.com/jankln/HomeLabSetup",
+        "language": "Docker",
+        "stars": 1
+      },
+      {
         "name": "LocalMeetingRecorder",
-        "description": "Record and transcribe meetings fully locally — no cloud, no data leaves your machine.",
+        "description": "Local desktop recorder with AI transcription — record meetings and get automatic transcripts via Whisper. Fully local, no cloud required.",
         "url": "https://github.com/jankln/LocalMeetingRecorder",
         "language": "Python",
         "stars": 2
       },
       {
+        "name": "tracksub",
+        "description": "Full-stack subscription management platform with email notifications, analytics dashboard and tracking. React, TypeScript, Node.js and Chart.js.",
+        "url": "https://github.com/jankln/tracksub",
+        "language": "TypeScript",
+        "stars": 0
+      },
+      {
         "name": "AutoGrowing",
-        "description": "Automated plant-growing system.",
+        "description": "Automated greenhouse management on a Raspberry Pi — sensor monitoring, watering and climate control with Python, PHP and SQLite.",
         "url": "https://github.com/jankln/AutoGrowing",
         "language": "PHP",
         "stars": 1
+      },
+      {
+        "name": "404Runner",
+        "description": "Minimalist, fast-paced runner game inspired by Chrome's offline dino. Canvas-based HTML/CSS/JS with day/night cycle and local high scores.",
+        "url": "https://github.com/jankln/404Runner",
+        "language": "JavaScript",
+        "stars": 0
       },
       {
         "name": "portfolio",
