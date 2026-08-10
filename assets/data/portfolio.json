@@ -152,26 +152,26 @@
     { "name": "HTML & CSS", "slug": "html5", "category": "Web" }
   ],
   "caseStudy": {
-    "name": "LocalMeetingRecorder",
-    "tagline": "Meeting notes, without the cloud.",
-    "intro": "A desktop app that records meetings and turns them into transcripts and AI summaries — fully offline, because confidential conversations shouldn't travel to someone else's servers.",
+    "name": "HomeLabSetup",
+    "tagline": "A data centre that fits on a shelf.",
+    "intro": "Twenty-plus self-hosted services on a single Raspberry Pi 5 — media automation, private cloud, photo backup, smart home and full monitoring — reachable from anywhere without a single open port on the router.",
     "blocks": [
       {
         "label": "Problem",
-        "text": "Cloud transcription tools are convenient, but every word of a confidential meeting ends up on external servers. In an enterprise context that is usually a hard no — so most meetings simply never get proper notes."
+        "text": "Self-hosting usually ends in one of two places: everything stays locked inside the LAN and is useless on the go, or ports get forwarded and the router becomes an attack surface. On top of that, most home-lab guides stop at the compose file and skip the part where the services actually have to work together."
       },
       {
         "label": "Approach",
-        "text": "A Python desktop app built around faster-whisper: one-click screen and microphone recording through a minimal Tkinter GUI, FFmpeg for capture, and locally-run Whisper models for transcription plus bullet-point summaries. Model size is a deliberate user choice — from ~39 MB (fast) to ~1.5 GB (most accurate) — trading speed for quality on the user's own hardware."
+        "text": "Every service runs as Docker Compose on the Pi, behind two access tiers: public apps go out through a Cloudflare Tunnel, admin UIs are reachable only via LAN or a Tailscale mesh — the router has no port forwarding at all. Nginx Proxy Manager terminates SSL, Pi-hole handles DNS, and Authentik puts SSO and 2FA in front of everything. Torrent traffic shares Gluetun's network namespace, so a dropped VPN means no internet for qBittorrent. Storage is split deliberately: databases on the SSD, bulk media on the HDD."
       },
       {
         "label": "Outcome",
-        "text": "Recordings, transcripts and summaries are organized per meeting session and never leave the machine. No accounts, no API keys, no cloud — install, click record, get notes."
+        "text": "Prometheus scrapes every container and the host itself; alerts land in Telegram within minutes, and Watchtower keeps images current. The repo is written as the guide I was missing — architecture diagram, per-service web-UI setup and the security reasoning behind each decision."
       }
     ],
-    "stack": ["Python", "Tkinter", "faster-whisper", "PyTorch", "FFmpeg"],
-    "url": "https://github.com/jankln/LocalMeetingRecorder",
-    "image": "https://opengraph.githubassets.com/1/jankln/LocalMeetingRecorder"
+    "stack": ["Docker Compose", "Raspberry Pi 5", "Cloudflare Tunnel", "Tailscale", "Authentik", "Prometheus", "Grafana", "Nginx"],
+    "url": "https://github.com/jankln/HomeLabSetup",
+    "image": "assets/img/homelab-architecture.svg"
   },
   "certifications": [
     {

@@ -853,6 +853,15 @@ body.loaded .hero-fade {
   transform: scale(1.13);
   filter: grayscale(1) invert(0.93) contrast(1.04) brightness(1);
 }
+/* locally authored artwork is already dark-native — no crop, no invert, no zoom */
+.case-media img[src^="assets/"],
+.case-media:hover img[src^="assets/"] {
+  aspect-ratio: auto;
+  object-fit: contain;
+  transform: none;
+  filter: none;
+  padding: 14px;
+}
 .case-name {
   margin: 0 0 6px;
   font-size: clamp(1.8rem, 3.4vw, 2.5rem);

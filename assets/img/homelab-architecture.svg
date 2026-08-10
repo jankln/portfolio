@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 460" width="480" height="460" role="img"
+     aria-label="Architecture of the HomeLabSetup: traffic enters through a Cloudflare Tunnel and a Tailscale mesh — no open ports — passes the Nginx Proxy Manager and Pi-hole edge, is authenticated by Authentik, and reaches the media, application and monitoring stacks on a Raspberry Pi 5 running Docker Compose.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#e20074" />
+    </marker>
+    <marker id="arrow-dim" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#74727c" />
+    </marker>
+    <style>
+      .box   { fill: #131315; stroke: rgba(233,231,226,0.16); }
+      .t     { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .head  { font-size: 12px; font-weight: 600; fill: #e9e7e2; }
+      .sub   { font-size: 9.5px; fill: #98959f; }
+      .item  { font-size: 9.5px; fill: #98959f; }
+      .label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 7.5px;
+               letter-spacing: 0.14em; fill: #74727c; }
+      .accent { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 7.5px;
+                letter-spacing: 0.12em; fill: #e20074; }
+    </style>
+  </defs>
+
+  <rect width="480" height="460" fill="#0a0a0b" />
+
+  <!-- ingress -->
+  <text class="label" x="8" y="11">INGRESS</text>
+  <text class="accent" x="472" y="11" text-anchor="end">ZERO OPEN PORTS</text>
+
+  <rect class="box" x="8" y="18" width="224" height="46" rx="10" />
+  <text class="t head" x="120" y="39" text-anchor="middle">Cloudflare Tunnel</text>
+  <text class="t sub"  x="120" y="53" text-anchor="middle">public apps · outbound only</text>
+
+  <rect class="box" x="248" y="18" width="224" height="46" rx="10" />
+  <text class="t head" x="360" y="39" text-anchor="middle">Tailscale Mesh</text>
+  <text class="t sub"  x="360" y="53" text-anchor="middle">admin access · WireGuard</text>
+
+  <path d="M120 64 L120 84" stroke="#e20074" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M360 64 L360 84" stroke="#e20074" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- host -->
+  <rect x="8" y="90" width="464" height="356" rx="14" fill="none"
+        stroke="rgba(233,231,226,0.22)" stroke-dasharray="4 5" />
+  <text class="label" x="20" y="107">RASPBERRY PI 5 · DOCKER COMPOSE</text>
+
+  <!-- edge -->
+  <rect class="box" x="20" y="116" width="270" height="46" rx="10" />
+  <text class="t head" x="36" y="137">Nginx Proxy Manager</text>
+  <text class="t sub"  x="36" y="151">reverse proxy · Let's Encrypt SSL</text>
+
+  <rect class="box" x="302" y="116" width="150" height="46" rx="10" />
+  <text class="t head" x="316" y="137">Pi-hole</text>
+  <text class="t sub"  x="316" y="151">DNS · ad blocking</text>
+
+  <path d="M155 162 L155 178" stroke="#74727c" stroke-width="1" marker-end="url(#arrow-dim)" />
+
+  <!-- identity -->
+  <rect class="box" x="20" y="184" width="432" height="42" rx="10" />
+  <text class="t head" x="36" y="203">Authentik</text>
+  <text class="t sub"  x="36" y="217">single sign-on · OAuth2 / OIDC · 2FA in front of everything else</text>
+
+  <path d="M155 226 L155 242" stroke="#74727c" stroke-width="1" marker-end="url(#arrow-dim)" />
+
+  <!-- service stacks -->
+  <rect class="box" x="20" y="248" width="137" height="140" rx="10" />
+  <text class="label" x="34" y="268">MEDIA</text>
+  <text class="t item" x="34" y="287">Jellyfin</text>
+  <text class="t item" x="34" y="303">Jellyseerr</text>
+  <text class="t item" x="34" y="319">Sonarr · Radarr</text>
+  <text class="t item" x="34" y="335">Prowlarr</text>
+  <text class="t item" x="34" y="351">qBittorrent</text>
+  <text class="accent" x="34" y="369">↳ GLUETUN VPN</text>
+
+  <rect class="box" x="167" y="248" width="137" height="140" rx="10" />
+  <text class="label" x="181" y="268">APPS</text>
+  <text class="t item" x="181" y="287">Nextcloud AIO</text>
+  <text class="t item" x="181" y="303">Immich</text>
+  <text class="t item" x="181" y="319">Home Assistant</text>
+  <text class="t item" x="181" y="335">n8n</text>
+  <text class="t item" x="181" y="351">Dashy</text>
+
+  <rect class="box" x="315" y="248" width="137" height="140" rx="10" />
+  <text class="label" x="329" y="268">OBSERVABILITY</text>
+  <text class="t item" x="329" y="287">Prometheus</text>
+  <text class="t item" x="329" y="303">Grafana</text>
+  <text class="t item" x="329" y="319">Alertmanager</text>
+  <text class="t item" x="329" y="335">cAdvisor</text>
+  <text class="t item" x="329" y="351">Watchtower</text>
+  <text class="accent" x="329" y="369">↳ TELEGRAM</text>
+
+  <!-- storage -->
+  <rect class="box" x="20" y="398" width="432" height="36" rx="10" />
+  <text class="t sub" x="36" y="420">SSD — configs, Postgres, app state</text>
+  <text class="t sub" x="256" y="420">HDD — media library, files, backups</text>
+</svg>
