@@ -124,28 +124,12 @@
       .join("");
   }
 
-  /* repo preview via GitHub's OpenGraph image service */
-  function previewUrl(repoUrl) {
-    const path = (repoUrl || "")
-      .replace(/^https:\/\/github\.com\//, "")
-      .replace(/\/+$/, "");
-    return /^[^/]+\/[^/]+$/.test(path)
-      ? `https://opengraph.githubassets.com/1/${path}`
-      : "";
-  }
-
+  /* text-only cards: GitHub's OG preview image repeats name + description, so it is not used */
   function projectCard(p, i) {
-    const preview = previewUrl(p.url);
-    const media = preview
-      ? `<div class="project-media">
-           <img src="${preview}" alt="Preview of ${p.name}" loading="lazy"
-                onerror="this.closest('.project-media').remove()" />
-         </div>`
-      : "";
     return `
-      <a class="project-card reveal" style="--d:${(i % 2) * 100}ms" href="${p.url}" target="_blank" rel="noopener noreferrer">
-        ${media}
+      <a class="project-card reveal" style="--d:${(i % 3) * 100}ms" href="${p.url}" target="_blank" rel="noopener noreferrer">
         <div class="project-body">
+          <span class="project-index">${String(i + 1).padStart(2, "0")}</span>
           <div class="project-top">
             <h3 class="project-name">${p.name}</h3>
             <span class="project-arrow" aria-hidden="true">↗</span>
