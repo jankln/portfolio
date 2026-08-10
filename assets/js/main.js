@@ -124,6 +124,13 @@
       .join("");
   }
 
+  /* repo descriptions arrive with stray whitespace and leading emoji from the API */
+  const cleanDesc = (text) =>
+    (text || "")
+      .replace(/^[\p{Extended_Pictographic}️\s]+/u, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
   /* text-only cards: GitHub's OG preview image repeats name + description, so it is not used */
   function projectCard(p, i) {
     return `
@@ -134,7 +141,7 @@
             <h3 class="project-name">${p.name}</h3>
             <span class="project-arrow" aria-hidden="true">↗</span>
           </div>
-          <p class="project-desc">${p.description || "No description provided."}</p>
+          <p class="project-desc">${cleanDesc(p.description) || "No description provided."}</p>
           <div class="project-meta">
             ${p.language ? `<span><span class="lang-dot"></span>${p.language}</span>` : ""}
             ${p.stars != null ? `<span>★ ${p.stars}</span>` : ""}
