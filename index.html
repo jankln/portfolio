@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Jan Klein — Pega System Architect and dual student of Business Informatics at Deutsche Telekom AG, based in Cologne." />
+  <meta name="description" content="Jan Klein — Solution Designer and dual student of Business Informatics, working on the Pega Platform at Deutsche Telekom Services Europe SE, based in Cologne." />
   <meta name="color-scheme" content="dark" />
   <meta name="theme-color" content="#0a0a0b" />
   <title>Jan Klein — Portfolio</title>
@@ -14,14 +14,14 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.jankln.net/" />
-  <meta property="og:title" content="Jan Klein — Pega System Architect" />
-  <meta property="og:description" content="Dual student at Deutsche Telekom AG. Building enterprise process automation, home labs and open source." />
+  <meta property="og:title" content="Jan Klein — Solution Designer" />
+  <meta property="og:description" content="Dual student with Deutsche Telekom AG, deployed at Deutsche Telekom Services Europe SE. Building enterprise process automation, home labs and open source." />
   <meta property="og:image" content="https://www.jankln.net/assets/img/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Jan Klein — Pega System Architect" />
-  <meta name="twitter:description" content="Dual student at Deutsche Telekom AG. Building enterprise process automation, home labs and open source." />
+  <meta name="twitter:title" content="Jan Klein — Solution Designer" />
+  <meta name="twitter:description" content="Dual student with Deutsche Telekom AG, deployed at Deutsche Telekom Services Europe SE. Building enterprise process automation, home labs and open source." />
   <meta name="twitter:image" content="https://www.jankln.net/assets/img/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -80,7 +80,7 @@
           <span class="line"><span class="split" data-bind="personal.lastName">Klein</span><span class="hero-dot" aria-hidden="true">.</span></span>
         </h1>
         <p class="hero-role hero-fade" style="--fd: 1.05s">
-          <em class="serif" data-bind="personal.title">Pega System Architect</em>
+          <em class="serif" data-bind="personal.title">Solution Designer</em>
           <span class="hero-role-sep">·</span>
           <span data-bind="personal.subtitle">Dual Student</span>
         </p>
@@ -114,6 +114,7 @@
         <ul class="about-facts reveal" style="--d: 120ms">
           <li><span class="fact-label">Role</span><span data-bind="personal.title"></span></li>
           <li><span class="fact-label">Studies</span><span data-bind="personal.subtitle"></span></li>
+          <li><span class="fact-label">Company</span><span data-bind="personal.company"></span></li>
           <li><span class="fact-label">Based in</span><span data-bind="personal.location"></span></li>
           <li><span class="fact-label">Languages</span><span data-bind="personal.languages"></span></li>
           <li><span class="fact-label">Email</span><a data-href="personal.email" data-bind="personal.email"></a></li>
@@ -128,7 +129,8 @@
         <span class="section-label scramble">02 / Journey</span>
         <h2 class="section-title mask reveal"><span>Where I've been</span></h2>
       </div>
-      <ol class="timeline" data-timeline></ol>
+      <div class="tl-filter reveal" data-timeline-filter role="group" aria-label="Filter journey"></div>
+      <div class="tl-groups" data-timeline></div>
     </section>
 
     <!-- SKILLS -->

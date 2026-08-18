@@ -50,7 +50,7 @@ Everything visible on the page is driven by `assets/data/portfolio.json`:
 - `github.featured` — ordered list of repo names to show as project cards
 - `github.fallbackProjects` — shown when no username is set or the API fails
 - `stats` — the animated counters in the About section
-- `timeline` — education, work and milestones (certifications live separately)
+- `timeline` — an ordered list of groups (`Experience`, `Education`), each with its own `items` (certifications live separately)
 - `skills` — tech stack, grouped by `category`; icons come from
   [simpleicons.org](https://simpleicons.org) (also feeds the marquee)
 - `caseStudy` — the deep-dive project (problem / approach / outcome blocks)

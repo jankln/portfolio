@@ -3,20 +3,21 @@
     "name": "Jan Klein",
     "firstName": "Jan",
     "lastName": "Klein",
-    "title": "Pega System Architect",
+    "title": "Solution Designer",
     "subtitle": "Dual Student · Business Informatics B.Sc.",
-    "tagline": "Turning enterprise processes into low-code automation at Deutsche Telekom AG",
+    "company": "Deutsche Telekom Services Europe SE",
+    "tagline": "Turning enterprise processes into low-code automation at Deutsche Telekom Services Europe SE",
     "location": "Cologne, Germany",
     "languages": "German (native) · English (fluent)",
     "birthday": "2004-01-25",
-    "email": "kleinjan826@gmail.com",
+    "email": "JanKlein2004@proton.me",
     "website": "https://www.jankln.net",
-    "bio": "Dual student of Business Informatics (B.Sc.) at FHDW Bielefeld with Deutsche Telekom AG as practice partner, specialising in Software Engineering. Day to day I design and build applications on the Pega Platform — currently rebuilding Telekom's idea-management system, before that migrating HR processes off a legacy system as a business analyst. Off the clock I run my own home server, live in Linux and open source, and use AI tools as part of my everyday development workflow."
+    "bio": "Dual student of Business Informatics (B.Sc.) at FHDW Bielefeld with Deutsche Telekom AG as practice partner, deployed at Deutsche Telekom Services Europe SE since 10/2024 and specialising in Software Engineering. Day to day I design and build applications on the Pega Platform — currently rebuilding Telekom's idea-management system, before that migrating HR processes off a legacy system as a business analyst. Off the clock I run my own home server, live in Linux and open source, and use AI tools as part of my everyday development workflow."
   },
   "socials": [
     { "name": "GitHub", "url": "https://github.com/jankln", "icon": "github", "handle": "@jankln" },
     { "name": "LinkedIn", "url": "https://www.linkedin.com/in/jan-klein-b9461b313/", "icon": "linkedin", "handle": "Jan Klein" },
-    { "name": "Email", "url": "mailto:kleinjan826@gmail.com", "icon": "gmail", "handle": "kleinjan826@gmail.com" }
+    { "name": "Email", "url": "mailto:JanKlein2004@proton.me", "icon": "protonmail", "handle": "JanKlein2004@proton.me" }
   ],
   "github": {
     "username": "jankln",
@@ -73,60 +74,77 @@
   ],
   "timeline": [
     {
-      "date": "04/2026 — Now",
-      "title": "Pega System Architect",
-      "org": "Deutsche Telekom AG",
-      "description": "Rebuilding and implementing an existing idea-management system on the Pega Platform — case designs, data models and UI components. Earned the Pega CSA certification along the way.",
-      "tags": ["Pega", "Low-Code", "Case Design"]
+      "id": "work",
+      "label": "Experience",
+      "caption": "Roles & internships",
+      "items": [
+        {
+          "date": "04/2026 — Now",
+          "title": "Pega System Architect",
+          "org": "Deutsche Telekom Services Europe SE",
+          "orgNote": "Dual study with Deutsche Telekom AG · on assignment since 10/2024",
+          "description": "Rebuilding and implementing an existing idea-management system on the Pega Platform — case designs, data models and UI components. Earned the Pega CSA certification along the way.",
+          "tags": ["Pega", "Low-Code", "Case Design"]
+        },
+        {
+          "date": "10/2024 — 03/2026",
+          "title": "Business Analyst / Solution Designer — Pega Business Architect",
+          "org": "Deutsche Telekom Services Europe SE",
+          "orgNote": "Dual study with Deutsche Telekom AG · on assignment since 10/2024",
+          "description": "Migrated Deutsche Telekom's HR processes from AMS-P to the Pega Platform. Analysed and modelled business processes, wrote the functional solution designs and acted as the interface between the HR business unit and the development teams. Earned the Pega CBA certification.",
+          "tags": ["BPM", "Requirements", "HR Processes"]
+        },
+        {
+          "date": "05/2023 — 07/2023",
+          "title": "Internship abroad — Systems Integration",
+          "org": "IES Jiménez de Quesada · Granada, Spain",
+          "description": "Planned and built structured network cabling, maintained Windows and Linux systems and automated recurring PC configurations.",
+          "tags": ["Networking", "Linux", "Automation"]
+        },
+        {
+          "date": "03/2019",
+          "title": "Student internship — Game development",
+          "org": "Bright Future GmbH",
+          "description": "First contact with C#: game development in Unity and 3D assets in Blender.",
+          "tags": ["C#", "Unity", "Blender"]
+        }
+      ]
     },
     {
-      "date": "10/2024 — 03/2026",
-      "title": "Business Analyst / Solution Designer — Pega Business Architect",
-      "org": "Deutsche Telekom AG",
-      "description": "Migrated Deutsche Telekom's HR processes from AMS-P to the Pega Platform. Analysed and modelled business processes, wrote the functional solution designs and acted as the interface between the HR business unit and the development teams. Earned the Pega CBA certification.",
-      "tags": ["BPM", "Requirements", "HR Processes"]
-    },
-    {
-      "date": "10/2024 — Now",
-      "title": "B.Sc. Business Informatics (dual study)",
-      "org": "FHDW Bielefeld · Practice partner: Deutsche Telekom AG",
-      "description": "Dual study programme combining university terms with full-time practice phases. Specialisation: Software Engineering.",
-      "tags": ["Studies", "Software Engineering"]
-    },
-    {
-      "date": "08/2020 — 06/2024",
-      "title": "Information Technology Assistant (ITA)",
-      "org": "Georg-Simon-Ohm Berufskolleg, Cologne",
-      "description": "State-certified Information Technology Assistant with advanced technical college entrance qualification (Fachhochschulreife). Focus on programming, databases and systems integration.",
-      "tags": ["Programming", "Databases", "Systems Integration"]
-    },
-    {
-      "date": "05/2023 — 07/2023",
-      "title": "Internship abroad — Systems Integration",
-      "org": "IES Jiménez de Quesada · Granada, Spain",
-      "description": "Planned and built structured network cabling, maintained Windows and Linux systems and automated recurring PC configurations.",
-      "tags": ["Networking", "Linux", "Automation"]
-    },
-    {
-      "date": "08/2014 — 06/2020",
-      "title": "Secondary school (Fachoberschulreife)",
-      "org": "Otto-Lilienthal-Realschule",
-      "description": "Elective focus on computer science — where the whole thing started.",
-      "tags": ["Education"]
-    },
-    {
-      "date": "07/2019",
-      "title": "Code+Design Camp — App development",
-      "org": "Deutsche Telekom AG",
-      "description": "Planned and built an Android app in Java over the course of the camp.",
-      "tags": ["Java", "Android"]
-    },
-    {
-      "date": "03/2019",
-      "title": "Student internship — Game development",
-      "org": "Bright Future GmbH",
-      "description": "First contact with C#: game development in Unity and 3D assets in Blender.",
-      "tags": ["C#", "Unity", "Blender"]
+      "id": "education",
+      "label": "Education",
+      "caption": "Studies & school",
+      "items": [
+        {
+          "date": "10/2024 — Now",
+          "title": "B.Sc. Business Informatics (dual study)",
+          "org": "FHDW Bielefeld · Practice partner: Deutsche Telekom AG",
+          "orgNote": "Practice phases at Deutsche Telekom Services Europe SE since 10/2024",
+          "description": "Dual study programme combining university terms with full-time practice phases. Specialisation: Software Engineering.",
+          "tags": ["Studies", "Software Engineering"]
+        },
+        {
+          "date": "08/2020 — 06/2024",
+          "title": "Information Technology Assistant (ITA)",
+          "org": "Georg-Simon-Ohm Berufskolleg, Cologne",
+          "description": "State-certified Information Technology Assistant with advanced technical college entrance qualification (Fachhochschulreife). Focus on programming, databases and systems integration.",
+          "tags": ["Programming", "Databases", "Systems Integration"]
+        },
+        {
+          "date": "07/2019",
+          "title": "Code+Design Camp — App development",
+          "org": "Deutsche Telekom AG",
+          "description": "Planned and built an Android app in Java over the course of the camp.",
+          "tags": ["Java", "Android"]
+        },
+        {
+          "date": "08/2014 — 06/2020",
+          "title": "Secondary school (Fachoberschulreife)",
+          "org": "Otto-Lilienthal-Realschule",
+          "description": "Elective focus on computer science — where the whole thing started.",
+          "tags": ["Education"]
+        }
+      ]
     }
   ],
   "skills": [
