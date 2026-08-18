@@ -44,22 +44,101 @@
   function renderTimeline(data) {
     const root = $("[data-timeline]");
     if (!root) return;
+    const pad = (n) => String(n).padStart(2, "0");
+
     root.innerHTML = data.timeline
-      .map(
-        (item, i) => `
-        <li class="timeline-item reveal" style="--d:${i * 100}ms">
-          <span class="timeline-year">${item.date}</span>
-          <div class="timeline-body">
-            <h3 class="timeline-title">${item.title}</h3>
-            <p class="timeline-org">${item.org}</p>
-            <p class="timeline-desc">${item.description}</p>
-            <div class="timeline-tags">
-              ${(item.tags || []).map((t) => `<span class="tag">${t}</span>`).join("")}
-            </div>
-          </div>
-        </li>`
-      )
+      .map((group, gi) => {
+        const items = (group.items || [])
+          .map(
+            (item, i) => `
+            <li class="timeline-item reveal" style="--d:${i * 90}ms">
+              <span class="timeline-year">${item.date}</span>
+              <span class="timeline-rail" aria-hidden="true"></span>
+              <div class="timeline-body">
+                <h4 class="timeline-title">${item.title}</h4>
+                <p class="timeline-org">${item.org}</p>
+                ${item.orgNote ? `<p class="timeline-note">${item.orgNote}</p>` : ""}
+                <p class="timeline-desc">${item.description}</p>
+                <div class="timeline-tags">
+                  ${(item.tags || []).map((t) => `<span class="tag">${t}</span>`).join("")}
+                </div>
+              </div>
+            </li>`
+          )
+          .join("");
+        return `
+        <section class="tl-group" data-group="${group.id}">
+          <header class="tl-group-head reveal">
+            <span class="tl-group-index">${pad(gi + 1)}</span>
+            <h3 class="tl-group-title">${group.label}</h3>
+            <span class="tl-group-caption">${group.caption || ""}</span>
+            <span class="tl-group-count">${pad((group.items || []).length)} entries</span>
+          </header>
+          <ol class="timeline">${items}</ol>
+        </section>`;
+      })
       .join("");
+  }
+
+  /* segmented control above the journey — switches between the timeline groups */
+  function setupTimelineFilter(data) {
+    const bar = $("[data-timeline-filter]");
+    const root = $("[data-timeline]");
+    if (!bar || !root || !data.timeline) return;
+
+    const options = [{ id: "all", label: "All" }].concat(
+      data.timeline.map((g) => ({ id: g.id, label: g.label }))
+    );
+    bar.innerHTML =
+      `<span class="tl-filter-thumb" aria-hidden="true"></span>` +
+      options
+        .map(
+          (o, i) => `
+          <button type="button" class="tl-filter-chip${i === 0 ? " is-active" : ""}"
+                  data-filter="${o.id}" aria-pressed="${i === 0}">${o.label}</button>`
+        )
+        .join("");
+
+    const thumb = $(".tl-filter-thumb", bar);
+    const chips = $$(".tl-filter-chip", bar);
+    const groups = $$(".tl-group", root);
+
+    const moveThumb = (chip) => {
+      if (!chip) return;
+      thumb.style.width = `${chip.offsetWidth}px`;
+      thumb.style.transform = `translateX(${chip.offsetLeft}px)`;
+    };
+
+    const apply = (id) => {
+      groups.forEach((group) => {
+        const hidden = id !== "all" && group.dataset.group !== id;
+        group.classList.toggle("is-filtered", hidden);
+        if (hidden) return;
+        // a group hidden at reveal time never intersects, so show its items by hand
+        $$(".reveal", group).forEach((el) => el.classList.add("is-visible"));
+        if (REDUCED_MOTION) return;
+        group.classList.remove("is-entering");
+        void group.offsetWidth; // restart the entrance animation
+        group.classList.add("is-entering");
+      });
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chips.forEach((c) => {
+          c.classList.toggle("is-active", c === chip);
+          c.setAttribute("aria-pressed", String(c === chip));
+        });
+        moveThumb(chip);
+        apply(chip.dataset.filter);
+      });
+    });
+
+    requestAnimationFrame(() => {
+      moveThumb(chips[0]);
+      bar.classList.add("is-ready");
+    });
+    window.addEventListener("resize", () => moveThumb($(".tl-filter-chip.is-active", bar)));
   }
 
   function renderSkills(data) {
@@ -517,6 +596,7 @@
       bindStaticFields(data);
       renderSocials(data);
       renderTimeline(data);
+      setupTimelineFilter(data);
       renderSkills(data);
       renderStats(data);
       renderCaseStudy(data);
