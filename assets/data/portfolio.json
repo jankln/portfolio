@@ -12,7 +12,7 @@
     "birthday": "2004-01-25",
     "email": "JanKlein2004@proton.me",
     "website": "https://www.jankln.net",
-    "bio": "Dual student of Business Informatics (B.Sc.) at FHDW Bielefeld with Deutsche Telekom AG as practice partner, deployed at Deutsche Telekom Services Europe SE since 10/2024 and specialising in Software Engineering. Day to day I design and build applications on the Pega Platform — currently rebuilding Telekom's idea-management system, before that migrating HR processes off a legacy system as a business analyst. Off the clock I run my own home server, live in Linux and open source, and use AI tools as part of my everyday development workflow."
+    "bio": "Dual student of Business Informatics (B.Sc.) at FHDW Bielefeld with Deutsche Telekom AG as practice partner, deployed at Deutsche Telekom Services Europe SE and specialising in Software Engineering. Day to day I design and build applications on the Pega Platform — currently rebuilding Telekom's idea-management system, before that migrating HR processes off a legacy system as a business analyst. Off the clock I run my own home server, live in Linux and open source, and use AI tools as part of my everyday development workflow."
   },
   "socials": [
     { "name": "GitHub", "url": "https://github.com/jankln", "icon": "github", "handle": "@jankln" },
@@ -82,7 +82,7 @@
           "date": "04/2026 — Now",
           "title": "Pega System Architect",
           "org": "Deutsche Telekom Services Europe SE",
-          "orgNote": "Dual study with Deutsche Telekom AG · on assignment since 10/2024",
+          "orgNote": "Dual study with Deutsche Telekom AG",
           "description": "Rebuilding and implementing an existing idea-management system on the Pega Platform — case designs, data models and UI components. Earned the Pega CSA certification along the way.",
           "tags": ["Pega", "Low-Code", "Case Design"]
         },
@@ -90,7 +90,7 @@
           "date": "10/2024 — 03/2026",
           "title": "Business Analyst / Solution Designer — Pega Business Architect",
           "org": "Deutsche Telekom Services Europe SE",
-          "orgNote": "Dual study with Deutsche Telekom AG · on assignment since 10/2024",
+          "orgNote": "Dual study with Deutsche Telekom AG",
           "description": "Migrated Deutsche Telekom's HR processes from AMS-P to the Pega Platform. Analysed and modelled business processes, wrote the functional solution designs and acted as the interface between the HR business unit and the development teams. Earned the Pega CBA certification.",
           "tags": ["BPM", "Requirements", "HR Processes"]
         },
@@ -119,7 +119,7 @@
           "date": "10/2024 — Now",
           "title": "B.Sc. Business Informatics (dual study)",
           "org": "FHDW Bielefeld · Practice partner: Deutsche Telekom AG",
-          "orgNote": "Practice phases at Deutsche Telekom Services Europe SE since 10/2024",
+          "orgNote": "Practice phases at Deutsche Telekom Services Europe SE",
           "description": "Dual study programme combining university terms with full-time practice phases. Specialisation: Software Engineering.",
           "tags": ["Studies", "Software Engineering"]
         },
@@ -197,14 +197,14 @@
       "issuer": "Pegasystems",
       "date": "2026",
       "description": "Data modeling, UI, integrations, security and reporting on Pega Platform.",
-      "url": "https://academy.pega.com/"
+      "url": "https://accounts.pega.com/profile/JanK17291775/share/BPEGACPSA25V1-PEGACPSA25V1"
     },
     {
       "title": "Pega Certified Business Architect (CBA)",
       "issuer": "Pegasystems",
       "date": "2025",
       "description": "Direct Capture of Objectives, case design and requirements analysis on Pega Platform.",
-      "url": "https://academy.pega.com/"
+      "url": "https://accounts.pega.com/profile/JanK17291775/share/BPEGACPBA24V1-PEGACPBA24V1"
     }
   ]
 }
